@@ -24,6 +24,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -40,13 +41,13 @@ public interface MusicLibrary {
     static class SongByArtistSorter {
         public static List<Song> sort(Collection<Song> songs) {
             return songs.stream().sorted((song1, song2) -> song1.getArtist().compareTo(song2.getArtist()))
-                        .collect(toList());
+                    .collect(toList());
         }
     }
 
     /**
      * Provides a rating for this song, between 1-100, inclusive.
-     *
+     * <p>
      * Default implementation takes a rating by normalising the play count for the given song with the play count for
      * all songs in this MusicLibrary.
      */
@@ -54,6 +55,15 @@ public interface MusicLibrary {
         int totalPlayCount = allSongs().stream().mapToInt(this::timesPlayed).sum();
         float score = (timesPlayed(song) / totalPlayCount) * 100.0f;
         return new Rating(Math.round(score));
+    }
+
+    /**
+     * @return every song in a collection, sorted by artist
+     */
+    default List<Song> sortedByArtist() {
+        return allSongs().stream()
+                .sorted((x, y) -> x.getArtist().compareTo(y.getArtist()))
+                .collect(Collectors.toList());
     }
 
     int timesPlayed(Song song);

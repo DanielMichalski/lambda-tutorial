@@ -22,6 +22,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise5.thirdpartyplugin;
  * #L%
  */
 
+import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.Rating;
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.Song;
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.StarRating;
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.UserRatedMusicLibrary;
@@ -70,4 +71,5 @@ public class UserRatedLocalFilesystemMusicLibrary implements UserRatedMusicLibra
         // Could read a local database file to find the number of times played
         return 5;
     }
+
 }

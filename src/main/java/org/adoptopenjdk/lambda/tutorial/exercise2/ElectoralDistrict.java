@@ -22,9 +22,11 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
  * #L%
  */
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
+import com.sun.javafx.collections.UnmodifiableListSet;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Some (inaccurate) London electrical districts
@@ -54,9 +56,10 @@ public enum ElectoralDistrict {
      * @return filtered set of registered voters in a district
      */
     public static Set<RegisteredVoter> votersIn(ElectoralDistrict district, Collection<RegisteredVoter> voters) {
-        // [your code here]
-
-        return Collections.emptySet();
+        Set<RegisteredVoter> set = voters.stream()
+                .filter(e -> e.getElectorId().startsWith(district.getPrefix()))
+                .collect(Collectors.toCollection(HashSet::new));
+        return Collections.unmodifiableSet(set);
     }
 
     /**
@@ -66,9 +69,9 @@ public enum ElectoralDistrict {
      * @return filtered set of unspoiled ballots
      */
     public static Set<Ballot> unspoiledBallots(Set<Ballot> ballots) {
-        // [your code here]
-
-        return Collections.emptySet();
+        return ballots.stream()
+                .filter(b -> !b.isSpoiled())
+                .collect(Collectors.toSet());
     }
 
     public String getPrefix() {

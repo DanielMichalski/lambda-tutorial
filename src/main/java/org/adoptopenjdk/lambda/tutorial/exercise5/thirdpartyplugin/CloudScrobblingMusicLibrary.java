@@ -48,6 +48,12 @@ public class CloudScrobblingMusicLibrary implements MusicLibrary {
         return cloudScrobblingService.retrieveTimesPlayedFromCloud(song);
     }
 
+    @Override
+    public Rating ratingOf(Song song) {
+        int rating = cloudScrobblingService.retrieveScrobbledRatingOf(song);
+        return new Rating(rating);
+    }
+
     public static final class CloudScrobblingService {
 
         public int retrieveTimesPlayedFromCloud(Song song) {
